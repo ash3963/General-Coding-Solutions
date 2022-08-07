@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct TreeNode {
+    
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+
+TreeNode* insertNode(int l, int r, vector<int> nums) {
+    if(l>r) 
+        return NULL;
+    int mid = (l+r)/2;
+    TreeNode* root = new TreeNode(nums[mid]);
+    root->left=insertNode(l, mid-1, nums);
+    root->right=insertNode(mid+1,r, nums);
+
+    return root;
+}
+
+TreeNode* sortedArrayToBST(vector<int>& nums) {
+    if(nums.empty())
+        return NULL;
+    return insertNode(0,nums.size()-1,nums);
+}
+
+
